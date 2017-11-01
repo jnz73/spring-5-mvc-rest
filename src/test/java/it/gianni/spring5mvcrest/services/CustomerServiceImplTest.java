@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class CustomerServiceImplTest {
@@ -39,6 +40,27 @@ public class CustomerServiceImplTest {
 
         assertEquals(3L, customerDTOs.size());
 
+
+    }
+
+    @Test
+    public void createNewCustomer() throws Exception {
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstname("john");
+
+        Customer savedCustomer = new Customer();
+        savedCustomer.setId(1L);
+        savedCustomer.setFirstname(customerDTO.getFirstname());
+        savedCustomer.setLastname(customerDTO.getLastname());
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
+        CustomerDTO savedDto = customerService.createNewCustomer(customerDTO);
+        assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
+        assertEquals("/api/v1/customer/1", savedDto.getCustomerUrl());
+
+        CustomerDTO returnDto = customerService.createNewCustomer(customerDTO);
+
+        assertEquals("john", returnDto.getFirstname());
 
     }
 
