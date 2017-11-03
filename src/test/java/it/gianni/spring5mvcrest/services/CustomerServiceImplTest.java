@@ -2,6 +2,7 @@ package it.gianni.spring5mvcrest.services;
 
 import it.gianni.spring5mvcrest.api.v1.mapper.CustomerMapper;
 import it.gianni.spring5mvcrest.api.v1.model.CustomerDTO;
+import it.gianni.spring5mvcrest.controllers.v1.CustomerController;
 import it.gianni.spring5mvcrest.domain.Customer;
 import it.gianni.spring5mvcrest.repositories.CustomerRepository;
 import org.junit.Before;
@@ -57,7 +58,7 @@ public class CustomerServiceImplTest {
         when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
         CustomerDTO savedDto = customerService.createNewCustomer(customerDTO);
         assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
-        assertEquals("/api/v1/customer/1", savedDto.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/1", savedDto.getCustomerUrl());
 
         CustomerDTO returnDto = customerService.createNewCustomer(customerDTO);
 
@@ -84,7 +85,7 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
-        assertEquals("/api/v1/customer/1", savedDto.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/1", savedDto.getCustomerUrl());
     }
 
     @Test
