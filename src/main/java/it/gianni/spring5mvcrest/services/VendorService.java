@@ -1,11 +1,10 @@
 package it.gianni.spring5mvcrest.services;
 
 import it.gianni.spring5mvcrest.api.v1.model.VendorDTO;
-
-import java.util.List;
+import it.gianni.spring5mvcrest.api.v1.model.VendorListDTO;
 
 public interface VendorService {
-    List<VendorDTO> getAllVendors();
+    VendorListDTO getAllVendors();
 
     VendorDTO getVendorById(Long id);
 

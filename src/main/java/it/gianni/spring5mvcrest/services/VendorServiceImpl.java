@@ -2,6 +2,7 @@ package it.gianni.spring5mvcrest.services;
 
 import it.gianni.spring5mvcrest.api.v1.mapper.VendorMapper;
 import it.gianni.spring5mvcrest.api.v1.model.VendorDTO;
+import it.gianni.spring5mvcrest.api.v1.model.VendorListDTO;
 import it.gianni.spring5mvcrest.controllers.v1.VendorController;
 import it.gianni.spring5mvcrest.domain.Vendor;
 import it.gianni.spring5mvcrest.repositories.VendorRepository;
@@ -22,8 +23,8 @@ public class VendorServiceImpl implements VendorService {
     }
 
     @Override
-    public List<VendorDTO> getAllVendors() {
-        return vendorRepository
+    public VendorListDTO getAllVendors() {
+        List<VendorDTO> vendorDTOS = vendorRepository
                 .findAll()
                 .stream()
                 .map(vendor -> {
@@ -31,6 +32,8 @@ public class VendorServiceImpl implements VendorService {
                     vendorDTO.setVendorUrl(getVendorUrl(vendor.getId()));
                     return vendorDTO;
                 }).collect(Collectors.toList());
+
+        return new VendorListDTO(vendorDTOS);
     }
 
     @Override
@@ -67,9 +70,7 @@ public class VendorServiceImpl implements VendorService {
             if (vendorDTO.getName() != null) {
                 vendor.setName(vendorDTO.getName());
             }
-            VendorDTO returnDTO = vendorMapper.vendorToVendorDTO(vendorRepository.save(vendor));
-            returnDTO.setVendorUrl(VendorController.BASE_URL + "/" + id);
-            return returnDTO;
+            return saveAndReturnDTO(vendor);
         }).orElseThrow(ResourceNotFoundException::new);
     }
 
