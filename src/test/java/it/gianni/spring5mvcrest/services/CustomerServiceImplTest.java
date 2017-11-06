@@ -21,6 +21,7 @@ import static org.mockito.Mockito.*;
 public class CustomerServiceImplTest {
 
     CustomerService customerService;
+
     @Mock
     CustomerRepository customerRepository;
 
@@ -41,7 +42,6 @@ public class CustomerServiceImplTest {
         List<CustomerDTO> customerDTOs = customerService.getAllCustomers();
 
         assertEquals(3L, customerDTOs.size());
-
 
     }
 
@@ -92,7 +92,7 @@ public class CustomerServiceImplTest {
     public void deleteCustomerById() throws Exception {
 
         Long id = 1L;
-        customerRepository.deleteById(id);
+        customerService.deleteCustomerById(id);
         verify(customerRepository, times(1)).deleteById(anyLong());
     }
 

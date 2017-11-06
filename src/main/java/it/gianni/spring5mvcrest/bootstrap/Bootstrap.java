@@ -3,8 +3,10 @@ package it.gianni.spring5mvcrest.bootstrap;
 
 import it.gianni.spring5mvcrest.domain.Category;
 import it.gianni.spring5mvcrest.domain.Customer;
+import it.gianni.spring5mvcrest.domain.Vendor;
 import it.gianni.spring5mvcrest.repositories.CategoryRepository;
 import it.gianni.spring5mvcrest.repositories.CustomerRepository;
+import it.gianni.spring5mvcrest.repositories.VendorRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +15,12 @@ public class Bootstrap implements CommandLineRunner {
 
     CategoryRepository categoryRepository;
     CustomerRepository customerRepository;
+    VendorRepository vendorRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
+    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository, VendorRepository vendorRepository) {
         this.categoryRepository = categoryRepository;
         this.customerRepository = customerRepository;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
@@ -24,7 +28,32 @@ public class Bootstrap implements CommandLineRunner {
 
         loadCategories();
         loadCustomers();
+        loadVendors();
 
+
+    }
+
+    private void loadVendors() {
+        Vendor v1 = new Vendor();
+        v1.setName("ACEA srl");
+        Vendor v2 = new Vendor();
+        v2.setName("ENI srl");
+        Vendor v3 = new Vendor();
+        v3.setName("Telecom srl");
+        Vendor v4 = new Vendor();
+        v4.setName("FIAT srl");
+        Vendor v5 = new Vendor();
+        v5.setName("Rai spa");
+        Vendor v6 = new Vendor();
+        v6.setName("AUTOSTRADE spa");
+        vendorRepository.save(v1);
+        vendorRepository.save(v2);
+        vendorRepository.save(v3);
+        vendorRepository.save(v4);
+        vendorRepository.save(v5);
+        vendorRepository.save(v6);
+
+        System.out.println("Vendor data loaded = " + vendorRepository.count());
 
     }
 

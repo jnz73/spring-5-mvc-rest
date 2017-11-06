@@ -6,6 +6,7 @@ import it.gianni.spring5mvcrest.bootstrap.Bootstrap;
 import it.gianni.spring5mvcrest.domain.Customer;
 import it.gianni.spring5mvcrest.repositories.CategoryRepository;
 import it.gianni.spring5mvcrest.repositories.CustomerRepository;
+import it.gianni.spring5mvcrest.repositories.VendorRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +33,9 @@ public class CustomerServiceImplIT {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    VendorRepository vendorRepository;
+
     CustomerService customerService;
 
     @Before
@@ -39,7 +43,7 @@ public class CustomerServiceImplIT {
         System.out.println("Loading customer data");
         System.out.println(customerRepository.findAll().size());
 
-        Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository);
+        Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository, vendorRepository);
         bootstrap.run();
         customerService = new CustomerServiceImpl(CustomerMapper.INSTANCE, customerRepository);
     }
