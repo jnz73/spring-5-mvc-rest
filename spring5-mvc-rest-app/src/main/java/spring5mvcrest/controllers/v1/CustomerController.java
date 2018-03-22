@@ -4,9 +4,9 @@ import com.gianni.model.CustomerDTO;
 import com.gianni.model.CustomerListDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import spring5mvcrest.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import spring5mvcrest.services.CustomerService;
 
 @Api(description = "This is my customer controller")
 @RestController
@@ -33,19 +33,27 @@ public class CustomerController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CustomerDTO getCustomerById(@PathVariable Long id) {
-        return customerService.getCustomerById(id);
+        CustomerDTO customerDTO = customerService.getCustomerById(id);
+        return customerDTO;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CustomerDTO createNewCustomer(@RequestBody CustomerDTO customerDTO) {
-        return customerService.createNewCustomer(customerDTO);
+        CustomerDTO createdCustomerDTO = customerService.createNewCustomer(customerDTO);
+        return createdCustomerDTO;
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CustomerDTO updateCustomer(@RequestBody CustomerDTO customerDTO, @PathVariable Long id) {
-        return customerService.saveCustomerByDTO(id, customerDTO);
+        CustomerDTO updatedCustomerDTO = customerService.saveCustomerByDTO(id, customerDTO);
+        return updatedCustomerDTO;
+    }
+    @PatchMapping({"/{id}"})
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDTO patchCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO){
+        return customerService.patchCustomer(id, customerDTO);
     }
 
     @DeleteMapping("/{id}")

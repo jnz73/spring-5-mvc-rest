@@ -1,6 +1,6 @@
 package spring5mvcrest.api.v1.mapper;
 
-import spring5mvcrest.api.v1.model.CustomerDTO;
+import com.gianni.model.CustomerDTO;
 import spring5mvcrest.domain.Customer;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

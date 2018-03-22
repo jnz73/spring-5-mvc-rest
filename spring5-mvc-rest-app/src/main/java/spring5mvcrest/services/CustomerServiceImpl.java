@@ -1,11 +1,11 @@
 package spring5mvcrest.services;
 
+import org.springframework.stereotype.Service;
 import spring5mvcrest.api.v1.mapper.CustomerMapper;
-import spring5mvcrest.api.v1.model.CustomerDTO;
+import com.gianni.model.CustomerDTO;
 import spring5mvcrest.controllers.v1.CustomerController;
 import spring5mvcrest.domain.Customer;
 import spring5mvcrest.repositories.CustomerRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO getCustomerById(Long id) {
+    public com.gianni.model.CustomerDTO getCustomerById(Long id) {
         return customerRepository.findById(id).map(customer -> {
             CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
             customerDTO.setCustomerUrl(getCustomerUrl(id));
